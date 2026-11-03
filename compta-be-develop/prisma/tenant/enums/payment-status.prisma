@@ -1,0 +1,8 @@
+enum PaymentStatus {
+  UNPAID
+  PARTIALLY_PAID
+  PAID
+  OVERDUE
+
+  @@map("payment_status")
+}

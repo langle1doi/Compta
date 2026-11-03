@@ -1,0 +1,17 @@
+model PlatformSession {
+  id         String    @id @default(uuid()) @db.Uuid
+  adminId    String    @map("admin_id") @db.Uuid
+  userAgent  String?   @map("user_agent")
+  ip         String?
+  createdAt  DateTime  @default(now()) @map("created_at")
+  lastUsedAt DateTime  @default(now()) @map("last_used_at")
+  // Absolute end of the session (12 h)
+  expiresAt  DateTime  @map("expires_at")
+  revokedAt  DateTime? @map("revoked_at")
+
+  admin         PlatformAdmin          @relation(fields: [adminId], references: [id], onDelete: Cascade)
+  refreshTokens PlatformRefreshToken[]
+
+  @@index([adminId, revokedAt])
+  @@map("platform_sessions")
+}

@@ -1,0 +1,13 @@
+// E-API-06: a create repeated with the same Idempotency-Key answers the first result instead of creating twice.
+model IdempotencyKey {
+  key       String
+  userId    String   @map("user_id") @db.Uuid
+  route     String
+  // Null while the first request is still running
+  response  Json?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@id([key, userId, route])
+  @@index([createdAt])
+  @@map("idempotency_keys")
+}

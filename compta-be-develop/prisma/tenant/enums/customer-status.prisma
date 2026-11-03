@@ -1,0 +1,7 @@
+// A customer with documents is never hard-deleted, only ARCHIVED (F06 BR-03)
+enum CustomerStatus {
+  ACTIVE
+  ARCHIVED
+
+  @@map("customer_status")
+}

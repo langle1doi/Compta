@@ -1,0 +1,12 @@
+// Permission catalog, e.g. (quote, approve). "*" is a wildcard for resource or action.
+model Permission {
+  id          String  @id @default(uuid()) @db.Uuid
+  resource    String
+  action      String
+  description String?
+
+  roles RolePermission[]
+
+  @@unique([resource, action])
+  @@map("permissions")
+}

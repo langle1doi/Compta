@@ -1,0 +1,7 @@
+enum AddressType {
+  BILLING
+  SHIPPING
+  OTHER
+
+  @@map("address_type")
+}

@@ -1,0 +1,127 @@
+# Local development: `docker compose up -d` starts PostgreSQL, RabbitMQ, MinIO and Mailpit
+# (run the API with `npm run start:dev`). Full stack in containers: `docker compose --profile app up -d --build`.
+# Every published port and password comes from the environment, so a second stack can run next to the first:
+#   docker compose -p <name> --env-file <file> --profile app up -d --build
+services:
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: compte_control
+    ports:
+      - '${INFRA_BIND_ADDRESS:-0.0.0.0}:${POSTGRES_PORT:-5432}:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  rabbitmq:
+    image: rabbitmq:4.3.5-management-alpine
+    restart: unless-stopped
+    environment:
+      # Long jobs hold their message unacked while they run (default limit: 30 minutes)
+      RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS: -rabbit consumer_timeout 14400000
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER:-compte}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS:-compte-dev-rabbitmq}
+    ports:
+      - '${INFRA_BIND_ADDRESS:-0.0.0.0}:${RABBITMQ_PORT:-5672}:5672'
+      - '${INFRA_BIND_ADDRESS:-0.0.0.0}:${RABBITMQ_MANAGEMENT_PORT:-15672}:15672'
+    volumes:
+      - rabbitmqdata:/var/lib/rabbitmq
+    healthcheck:
+      test: ['CMD', 'rabbitmq-diagnostics', '-q', 'ping']
+      interval: 10s
+      timeout: 10s
+      retries: 12
+
+  # The API creates its bucket at startup when missing
+  minio:
+    image: pgsty/minio:RELEASE.2026-08-04T00-00-00Z
+    restart: unless-stopped
+    command: server /data --console-address ':9001'
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-compte}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-compte-dev-minio}
+    ports:
+      - '${MINIO_PORT:-9000}:9000'
+      - '${INFRA_BIND_ADDRESS:-0.0.0.0}:${MINIO_CONSOLE_PORT:-9001}:9001'
+    volumes:
+      - miniodata:/data
+    healthcheck:
+      test: ['CMD', 'mc', 'ready', 'local']
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  # Catches every email in development: http://localhost:8025
+  mailpit:
+    image: axllent/mailpit:v1.31.5
+    restart: unless-stopped
+    ports:
+      - '${INFRA_BIND_ADDRESS:-0.0.0.0}:${MAILPIT_SMTP_PORT:-1025}:1025'
+      - '${INFRA_BIND_ADDRESS:-0.0.0.0}:${MAILPIT_UI_PORT:-8025}:8025'
+    healthcheck:
+      test: ['CMD', '/mailpit', 'readyz']
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  # One-off job, idempotent: control migrations -> seed (plans, platform roles, default Super Admin, default tenant
+  # "dfm" on a brand-new platform) -> tenant migrations + missing default accounts. Then the API starts.
+  migrate:
+    profiles: [app]
+    build: .
+    env_file: .env
+    environment:
+      &container-env # Production refuses the default passwords this file falls back to: set real ones, then APP_NODE_ENV=production
+      NODE_ENV: ${APP_NODE_ENV:-development}
+      # The API listens here whatever .env says; APP_PORT is the published side
+      PORT: 3000
+      LOG_PRETTY: 'false'
+      CONTROL_DATABASE_URL: postgresql://postgres:postgres@postgres:5432/compte_control
+      TENANT_DB_ADMIN_URL: postgresql://postgres:postgres@postgres:5432/postgres
+      TENANT_DB_HOST: postgres
+      TENANT_DB_PORT: 5432
+      RABBITMQ_URL: amqp://${RABBITMQ_DEFAULT_USER:-compte}:${RABBITMQ_DEFAULT_PASS:-compte-dev-rabbitmq}@rabbitmq:5672
+      S3_ENDPOINT: http://minio:9000
+      # The browser downloads from the published port, not from the service name
+      S3_PUBLIC_ENDPOINT: ${S3_PUBLIC_ENDPOINT:-http://localhost:${MINIO_PORT:-9000}}
+      S3_ACCESS_KEY: ${MINIO_ROOT_USER:-compte}
+      S3_SECRET_KEY: ${MINIO_ROOT_PASSWORD:-compte-dev-minio}
+      # Mailpit unless .env names a real server
+      MAIL_HOST: ${MAIL_HOST:-mailpit}
+      MAIL_PORT: ${MAIL_PORT:-1025}
+      MAIL_FROM_EMAIL: ${MAIL_FROM_EMAIL:-noreply@compta.local}
+    command:
+      - sh
+      - -c
+      - node node_modules/prisma/build/index.js migrate deploy --config prisma.control.config.ts && node dist/cli/seed-control.js && node dist/cli/migrate-tenants.js
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+
+  app:
+    profiles: [app]
+    build: .
+    env_file: .env
+    environment: *container-env
+    ports:
+      - '${APP_PORT:-3000}:3000'
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    stop_grace_period: 30s
+
+volumes:
+  pgdata:
+  rabbitmqdata:
+  miniodata:

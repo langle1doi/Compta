@@ -1,0 +1,40 @@
+// Legal entity (pháp nhân): DFM-Europe, DFM New York, ...
+model Company {
+  id                     String        @id @default(uuid()) @db.Uuid
+  legalName              String        @map("legal_name")
+  tradeName              String?       @map("trade_name")
+  countryCode            String        @default("FR") @map("country_code") @db.Char(2)
+  siret                  String?
+  vatNumber              String?       @map("vat_number")
+  nafCode                String?       @map("naf_code")
+  iban                   String?
+  bic                    String?
+  logoUrl                String?       @map("logo_url")
+  currency               String        @default("EUR") @db.Char(3)
+  locale                 String        @default("fr")
+  email                  String?
+  phone                  String?
+  addressLine1           String?       @map("address_line1")
+  addressLine2           String?       @map("address_line2")
+  postalCode             String?       @map("postal_code")
+  city                   String?
+  paymentTermsDays       Int           @default(30) @map("payment_terms_days")
+  quoteValidityDays      Int           @default(60) @map("quote_validity_days")
+  // Quotes above this total (HT) need owner approval before sending
+  quoteApprovalThreshold Decimal?      @map("quote_approval_threshold") @db.Decimal(14, 2)
+  status                 CompanyStatus @default(ACTIVE)
+  createdAt              DateTime      @default(now()) @map("created_at")
+  updatedAt              DateTime      @updatedAt @map("updated_at")
+
+  memberships     Membership[]
+  customers       Customer[]
+  products        Product[]
+  quotes          Quote[]
+  invoices        Invoice[]
+  creditNotes     CreditNote[]
+  payments        Payment[]
+  numberSequences NumberSequence[]
+  taxRates        TaxRate[]
+
+  @@map("companies")
+}

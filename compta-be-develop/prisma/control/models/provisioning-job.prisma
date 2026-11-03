@@ -1,0 +1,31 @@
+// Background work of the platform. The row holds the state; RabbitMQ only carries its id.
+// Partial unique indexes (SQL migration): one active MIGRATE job overall, one active job per (type, tenant).
+model ProvisioningJob {
+  id            String                @id @default(uuid()) @db.Uuid
+  type          ProvisioningJobType
+  tenantId      String?               @map("tenant_id") @db.Uuid
+  status        ProvisioningJobStatus @default(QUEUED)
+  // Current step, and every step reached with its time
+  step          String?
+  steps         Json                  @default("[]")
+  result        Json?
+  // AES-256-GCM of the job input that must stay secret (admin password hash); cleared once the job ends
+  secretEnc     String?               @map("secret_enc")
+  // Bumped by each delivery: a worker whose attempt is no longer current stops at its next step
+  attempt       Int                   @default(0)
+  // Platform admin or tenant user who asked for it; null = system (seed). No FK: both kinds of actors.
+  createdBy     String?               @map("created_by") @db.Uuid
+  publishedAt   DateTime?             @map("published_at")
+  createdAt     DateTime              @default(now()) @map("created_at")
+  startedAt     DateTime?             @map("started_at")
+  finishedAt    DateTime?             @map("finished_at")
+  updatedAt     DateTime              @updatedAt @map("updated_at")
+  // EXPORT: the zip was removed from object storage
+  fileDeletedAt DateTime?             @map("file_deleted_at")
+
+  tenant Tenant? @relation(fields: [tenantId], references: [id])
+
+  @@index([status, updatedAt])
+  @@index([tenantId, type, status])
+  @@map("provisioning_jobs")
+}

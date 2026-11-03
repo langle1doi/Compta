@@ -1,0 +1,18 @@
+// VAT rates per company (F03 BR-04). A 0% rate must carry a legal mention (CHECK constraint in SQL migration).
+model TaxRate {
+  id           String   @id @default(uuid()) @db.Uuid
+  companyId    String   @map("company_id") @db.Uuid
+  rate         Decimal  @db.Decimal(5, 2)
+  label        String
+  legalMention String?  @map("legal_mention")
+  isDefault    Boolean  @default(false) @map("is_default")
+  isActive     Boolean  @default(true) @map("is_active")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  company   Company    @relation(fields: [companyId], references: [id])
+  customers Customer[]
+
+  @@unique([companyId, label])
+  @@map("tax_rates")
+}

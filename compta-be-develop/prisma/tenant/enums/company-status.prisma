@@ -1,0 +1,7 @@
+// A company with documents is never hard-deleted, only INACTIVE (F03 BR-02)
+enum CompanyStatus {
+  ACTIVE
+  INACTIVE
+
+  @@map("company_status")
+}

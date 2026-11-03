@@ -1,0 +1,10 @@
+// Lifecycle (F01 BR-03): PROVISIONING -> ACTIVE <-> SUSPENDED -> DELETED; PROVISIONING -> FAILED -> PROVISIONING
+enum TenantStatus {
+  PROVISIONING
+  ACTIVE
+  SUSPENDED
+  FAILED
+  DELETED
+
+  @@map("tenant_status")
+}

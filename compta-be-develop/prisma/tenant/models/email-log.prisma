@@ -1,0 +1,19 @@
+model EmailLog {
+  id           String        @id @default(uuid()) @db.Uuid
+  companyId    String?       @map("company_id") @db.Uuid
+  documentType DocumentType? @map("document_type")
+  documentId   String?       @map("document_id") @db.Uuid
+  toAddresses  String[]      @map("to_addresses")
+  ccAddresses  String[]      @default([]) @map("cc_addresses")
+  bccAddresses String[]      @default([]) @map("bcc_addresses")
+  subject      String
+  status       EmailStatus   @default(QUEUED)
+  error        String?
+  sentAt       DateTime?     @map("sent_at")
+  openedAt     DateTime?     @map("opened_at")
+  createdById  String?       @map("created_by") @db.Uuid
+  createdAt    DateTime      @default(now()) @map("created_at")
+
+  @@index([documentType, documentId])
+  @@map("email_logs")
+}

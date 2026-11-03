@@ -1,0 +1,21 @@
+{
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "rootDir": ".",
+  "testEnvironment": "node",
+  "testRegex": ".e2e-spec.ts$",
+  "transform": {
+    "^.+.ts$": [
+      "ts-jest",
+      {
+        "astTransformers": {
+          "before": ["<rootDir>/setup/swagger-transformer.js"]
+        }
+      }
+    ]
+  },
+  "setupFiles": ["reflect-metadata", "<rootDir>/setup/env.ts"],
+  "globalSetup": "<rootDir>/setup/global-setup.ts",
+  "globalTeardown": "<rootDir>/setup/global-teardown.ts",
+  "testTimeout": 120000,
+  "maxWorkers": 1
+}

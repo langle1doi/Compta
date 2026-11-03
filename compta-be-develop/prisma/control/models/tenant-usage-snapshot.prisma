@@ -1,0 +1,16 @@
+// F01 I.6: usage counters of a tenant, refreshed in the background every 15 minutes so listing never opens tenant databases.
+model TenantUsageSnapshot {
+  tenantId          String   @id @map("tenant_id") @db.Uuid
+  users             Int
+  companies         Int
+  invoicesThisMonth Int      @map("invoices_this_month")
+  // What counts against max_storage_gb: database + files
+  storageBytes      BigInt   @map("storage_bytes")
+  databaseBytes     BigInt   @default(0) @map("database_bytes")
+  filesBytes        BigInt   @default(0) @map("files_bytes")
+  capturedAt        DateTime @map("captured_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@map("tenant_usage_snapshots")
+}

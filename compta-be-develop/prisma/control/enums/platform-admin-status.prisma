@@ -1,0 +1,6 @@
+enum PlatformAdminStatus {
+  ACTIVE
+  DISABLED
+
+  @@map("platform_admin_status")
+}

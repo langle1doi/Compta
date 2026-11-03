@@ -1,0 +1,7 @@
+// INDIVIDUAL = personne physique, COMPANY = personne morale
+enum CustomerType {
+  INDIVIDUAL
+  COMPANY
+
+  @@map("customer_type")
+}

@@ -1,0 +1,16 @@
+model Plan {
+  id                 String   @id @default(uuid()) @db.Uuid
+  code               String   @unique
+  name               String
+  maxUsers           Int      @map("max_users")
+  maxCompanies       Int      @map("max_companies")
+  maxInvoicesMonthly Int      @map("max_invoices_monthly")
+  maxAiCallsMonthly  Int      @map("max_ai_calls_monthly")
+  maxStorageGb       Int      @default(10) @map("max_storage_gb")
+  createdAt          DateTime @default(now()) @map("created_at")
+  updatedAt          DateTime @updatedAt @map("updated_at")
+
+  tenants Tenant[]
+
+  @@map("plans")
+}

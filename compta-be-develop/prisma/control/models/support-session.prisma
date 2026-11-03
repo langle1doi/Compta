@@ -1,0 +1,19 @@
+// F01 BR-05: support access granted by a tenant admin, at most 24 hours. Without a valid row a platform admin reads nothing.
+model SupportSession {
+  id              String    @id @default(uuid()) @db.Uuid
+  tenantId        String    @map("tenant_id") @db.Uuid
+  // Tenant user who granted it (lives in the tenant database, hence no FK)
+  grantedById     String    @map("granted_by_id") @db.Uuid
+  grantedByEmail  String    @map("granted_by_email")
+  reason          String?
+  expiresAt       DateTime  @map("expires_at")
+  revokedAt       DateTime? @map("revoked_at")
+  // Set by the first platform admin who enters
+  platformAdminId String?   @map("platform_admin_id") @db.Uuid
+  createdAt       DateTime  @default(now()) @map("created_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, expiresAt])
+  @@map("support_sessions")
+}

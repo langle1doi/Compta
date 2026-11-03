@@ -1,0 +1,18 @@
+// Assigns a role to a user in one company. companyId = null means tenant-wide (all companies).
+// The (user_id, company_id) unique index is rebuilt with NULLS NOT DISTINCT in a SQL migration,
+// so a user also has at most one tenant-wide membership.
+model Membership {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @map("user_id") @db.Uuid
+  companyId String?  @map("company_id") @db.Uuid
+  roleId    String   @map("role_id") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  company Company? @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  role    Role     @relation(fields: [roleId], references: [id])
+
+  @@unique([userId, companyId])
+  @@index([roleId])
+  @@map("memberships")
+}

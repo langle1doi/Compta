@@ -1,0 +1,371 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-02T05:00:00.000Z",
+  "title": "Design System: COMPTE",
+  "extensions": {
+    "colorMeta": {
+      "globe": {
+        "role": "primary",
+        "displayName": "Globe Blue",
+        "canonical": "#044ce2",
+        "tonalRamp": ["#160071", "#060093", "#0015b5", "#0041d7", "#1e64fb", "#4d8fff", "#83bbff", "#bee8ff"]
+      },
+      "wordmark": {
+        "role": "primary",
+        "displayName": "Wordmark Navy",
+        "canonical": "#063586",
+        "tonalRamp": ["#000049", "#001768", "#073687", "#2553a7", "#4172c8", "#6997e8", "#98beff", "#cde9ff"]
+      },
+      "globe-soft": {
+        "role": "secondary",
+        "displayName": "Globe Soft",
+        "canonical": "#e7efff",
+        "tonalRamp": ["#080d17", "#1e242f", "#373d4a", "#525865", "#6e7583", "#9298a6", "#b8bec9", "#e4e8f0"]
+      },
+      "globe-wash": {
+        "role": "secondary",
+        "displayName": "Globe Wash",
+        "canonical": "#f2f6ff"
+      },
+      "globe-line": {
+        "role": "secondary",
+        "displayName": "Globe Line",
+        "canonical": "#d7e4ff"
+      },
+      "globe-border": {
+        "role": "secondary",
+        "displayName": "Globe Border",
+        "canonical": "#b9d0fb"
+      },
+      "canvas": {
+        "role": "neutral",
+        "displayName": "Ledger Canvas",
+        "canonical": "#f2f6fd",
+        "tonalRamp": ["#0b0d12", "#212429", "#3a3d43", "#55585e", "#71757b", "#95989e", "#bbbec2", "#e6e8eb"]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "#ffffff"
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#e1e7f1"
+      },
+      "frame": {
+        "role": "neutral",
+        "displayName": "Frame",
+        "canonical": "#e0e6ef"
+      },
+      "field-border": {
+        "role": "neutral",
+        "displayName": "Field Border",
+        "canonical": "#dfe6f1"
+      },
+      "field-fill": {
+        "role": "neutral",
+        "displayName": "Field Fill",
+        "canonical": "#f7f9fd"
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted",
+        "canonical": "#66758d"
+      },
+      "quiet": {
+        "role": "neutral",
+        "displayName": "Quiet",
+        "canonical": "#7b8798"
+      },
+      "control": {
+        "role": "neutral",
+        "displayName": "Control Ink",
+        "canonical": "#405069"
+      },
+      "nav-hover": {
+        "role": "neutral",
+        "displayName": "Nav Hover",
+        "canonical": "#f5f7fb"
+      },
+      "nav-ink": {
+        "role": "neutral",
+        "displayName": "Nav Ink",
+        "canonical": "#24334c"
+      },
+      "on-navy": {
+        "role": "neutral",
+        "displayName": "On Navy",
+        "canonical": "#c4cee0"
+      },
+      "success": {
+        "role": "tertiary",
+        "displayName": "Collected",
+        "canonical": "#238567",
+        "tonalRamp": ["#001805", "#00321a", "#004d33", "#00694d", "#268769", "#5baa8d", "#90cdb5", "#c8f3e1"]
+      },
+      "success-bg": {
+        "role": "tertiary",
+        "displayName": "Collected Wash",
+        "canonical": "#e8f7f0"
+      },
+      "warning": {
+        "role": "tertiary",
+        "displayName": "Waiting",
+        "canonical": "#b96d24",
+        "tonalRamp": ["#2e0000", "#4c0300", "#6a2400", "#894200", "#aa5f0e", "#cc864a", "#eab082", "#ffdebe"]
+      },
+      "warning-bg": {
+        "role": "tertiary",
+        "displayName": "Waiting Wash",
+        "canonical": "#fff4e6"
+      },
+      "danger": {
+        "role": "tertiary",
+        "displayName": "Overdue",
+        "canonical": "#c9564f",
+        "tonalRamp": ["#370000", "#580000", "#78000a", "#9a2a28", "#bc4a44", "#df746c", "#fba39a", "#ffd5ce"]
+      },
+      "danger-bg": {
+        "role": "tertiary",
+        "displayName": "Overdue Wash",
+        "canonical": "#fff0ed"
+      },
+      "notice": {
+        "role": "tertiary",
+        "displayName": "Noted",
+        "canonical": "#7b61c8",
+        "tonalRamp": ["#180047", "#2c0065", "#432285", "#5d41a5", "#795fc6", "#9b86e6", "#bfb1ff", "#e9dfff"]
+      },
+      "notice-bg": {
+        "role": "tertiary",
+        "displayName": "Noted Wash",
+        "canonical": "#f2edff"
+      },
+      "alert": {
+        "role": "tertiary",
+        "displayName": "Alert Dot",
+        "canonical": "#e9764f",
+        "tonalRamp": ["#370000", "#580000", "#790300", "#9a2d00", "#bc4d25", "#df7755", "#faa589", "#ffd7c2"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero statement on the navy panel. 30px below the small breakpoint."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Page title in the sticky header. 22px below the small breakpoint."
+      },
+      "metric": {
+        "displayName": "Metric",
+        "purpose": "KPI values."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Section headings inside cards."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Controls, table cells, and navigation."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Chips, meta lines, and text actions."
+      },
+      "eyebrow": {
+        "displayName": "Eyebrow",
+        "purpose": "Sidebar group labels, in muted gray."
+      }
+    },
+    "shadows": [
+      {
+        "name": "resting-card",
+        "value": "0 14px 45px rgb(29 43 68 / 0.07)",
+        "purpose": "KPI cards, tables, and standard panels."
+      },
+      {
+        "name": "lifted-card",
+        "value": "0 22px 70px rgb(29 43 68 / 0.13)",
+        "purpose": "The same panels on hover."
+      },
+      {
+        "name": "row-hover",
+        "value": "0 12px 32px rgb(29 43 68 / 0.08)",
+        "purpose": "List and table rows on hover."
+      },
+      {
+        "name": "header",
+        "value": "0 8px 30px rgb(24 36 58 / 0.05)",
+        "purpose": "Sticky header only."
+      },
+      {
+        "name": "primary-action",
+        "value": "0 10px 24px rgb(4 76 226 / 0.22)",
+        "purpose": "The globe button."
+      },
+      {
+        "name": "hero",
+        "value": "0 22px 60px rgb(6 53 134 / 0.18)",
+        "purpose": "The wordmark panel."
+      },
+      {
+        "name": "count-chip",
+        "value": "0 1px 2px rgb(20 32 51 / 0.06)",
+        "purpose": "The small numeric badge in navigation."
+      }
+    ],
+    "motion": [
+      {
+        "name": "action",
+        "value": "150ms ease",
+        "purpose": "Buttons lift 1px on hover and settle on press."
+      },
+      {
+        "name": "surface",
+        "value": "180ms ease",
+        "purpose": "Cards lift 2px and deepen their shadow on hover."
+      },
+      {
+        "name": "nav",
+        "value": "160ms ease",
+        "purpose": "Idle navigation rows shift 2px right on hover."
+      },
+      {
+        "name": "enter",
+        "value": "560ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Dashboard sections enter with a short rise. Disabled when reduced motion is requested."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The main action on a page, such as creating a quote.",
+      "html": "<button class=\"ds-btn-primary\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 5v14M5 12h14\"></path></svg>Tao bao gia</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; padding: 0 12px; border: 0; border-radius: 10px; background: #044ce2; color: #ffffff; font-family: \"Segoe UI\", Arial, Helvetica, sans-serif; font-size: 14px; font-weight: 600; line-height: 1; box-shadow: 0 10px 24px rgb(4 76 226 / 0.22); cursor: pointer; transition: transform 150ms ease, background-color 150ms ease, box-shadow 150ms ease; } .ds-btn-primary svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; } .ds-btn-primary:hover { background: #063586; transform: translateY(-1px); } .ds-btn-primary:active { transform: translateY(1px) scale(0.99); } .ds-btn-primary:focus-visible { outline: 3px solid rgb(4 76 226 / 0.35); outline-offset: 3px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "A quiet companion action on paper surfaces.",
+      "html": "<button class=\"ds-btn-secondary\">Thang 10</button>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; padding: 0 12px; border: 1px solid #dfe6f1; border-radius: 10px; background: #ffffff; color: #405069; font-family: \"Segoe UI\", Arial, Helvetica, sans-serif; font-size: 14px; font-weight: 600; line-height: 1; box-shadow: 0 1px 2px rgb(20 32 51 / 0.04); cursor: pointer; transition: transform 150ms ease, border-color 150ms ease; } .ds-btn-secondary:hover { border-color: #b9d0fb; transform: translateY(-1px); } .ds-btn-secondary:active { transform: translateY(1px) scale(0.99); } .ds-btn-secondary:focus-visible { outline: 3px solid rgb(4 76 226 / 0.35); outline-offset: 3px; }"
+    },
+    {
+      "name": "Inverse Button",
+      "kind": "button",
+      "refersTo": "button-inverse",
+      "description": "The primary action sitting on a wordmark navy panel.",
+      "html": "<button class=\"ds-btn-inverse\">Ouvrir les priorites</button>",
+      "css": ".ds-btn-inverse { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 16px; border: 0; border-radius: 10px; background: #ffffff; color: #063586; font-family: \"Segoe UI\", Arial, Helvetica, sans-serif; font-size: 14px; font-weight: 600; line-height: 1; cursor: pointer; transition: transform 150ms ease; } .ds-btn-inverse:hover { transform: translateY(-1px); } .ds-btn-inverse:active { transform: translateY(1px) scale(0.99); } .ds-btn-inverse:focus-visible { outline: 3px solid rgb(4 76 226 / 0.35); outline-offset: 3px; }"
+    },
+    {
+      "name": "Search Field",
+      "kind": "input",
+      "refersTo": "field-search",
+      "description": "The header search for customers, quotes, and invoices.",
+      "html": "<label class=\"ds-search\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"7\"></circle><path d=\"M20 20l-3.5-3.5\"></path></svg><input class=\"ds-search-input\" type=\"search\" placeholder=\"Tim khach hang, devis, facture...\"></label>",
+      "css": ".ds-search { display: flex; align-items: center; gap: 8px; min-height: 40px; max-width: 420px; padding: 8px 12px; border: 1px solid #dfe6f1; border-radius: 12px; background: #f7f9fd; color: #7b8798; } .ds-search svg { width: 16px; height: 16px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; } .ds-search-input { width: 100%; border: 0; outline: 0; background: transparent; color: #063586; font-family: \"Segoe UI\", Arial, Helvetica, sans-serif; font-size: 14px; } .ds-search-input::placeholder { color: #7b8798; } .ds-search:hover { border-color: #b9d0fb; background: #ffffff; } .ds-search:focus-within { outline: 3px solid rgb(4 76 226 / 0.35); outline-offset: 3px; border-color: transparent; background: #ffffff; }"
+    },
+    {
+      "name": "Navigation Item",
+      "kind": "nav",
+      "refersTo": "nav-item",
+      "description": "A sidebar destination, with an active and idle state.",
+      "html": "<div class=\"ds-nav\"><button class=\"ds-nav-item is-active\" type=\"button\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"3\" y=\"3\" width=\"7\" height=\"7\"></rect><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\"></rect><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\"></rect><rect x=\"14\" y=\"14\" width=\"7\" height=\"7\"></rect></svg><span>Tong quan</span></button><button class=\"ds-nav-item\" type=\"button\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2\"></path><circle cx=\"9\" cy=\"7\" r=\"4\"></circle></svg><span>Khach hang</span></button></div>",
+      "css": ".ds-nav { display: flex; flex-direction: column; gap: 4px; width: 236px; } .ds-nav-item { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 44px; padding: 0 12px; border: 0; border-radius: 10px; background: transparent; color: #66758d; font-family: \"Segoe UI\", Arial, Helvetica, sans-serif; font-size: 14px; font-weight: 400; text-align: left; cursor: pointer; transition: background-color 160ms ease, color 160ms ease, transform 160ms ease; } .ds-nav-item svg { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; } .ds-nav-item:hover { background: #f5f7fb; color: #24334c; transform: translateX(2px); } .ds-nav-item.is-active { background: #e7efff; color: #044ce2; font-weight: 600; } .ds-nav-item.is-active:hover { transform: none; } .ds-nav-item:focus-visible { outline: 3px solid rgb(4 76 226 / 0.35); outline-offset: 3px; }"
+    },
+    {
+      "name": "Status Chip",
+      "kind": "chip",
+      "refersTo": "chip-status",
+      "description": "A document or payment state. The blue chip is information, not the brand fill.",
+      "html": "<div class=\"ds-chips\"><span class=\"ds-chip ds-chip-blue\">Da xac nhan</span><span class=\"ds-chip ds-chip-green\">Da thanh toan</span><span class=\"ds-chip ds-chip-red\">Qua han</span></div>",
+      "css": ".ds-chips { display: flex; flex-wrap: wrap; gap: 8px; } .ds-chip { display: inline-flex; align-items: center; min-height: 28px; padding: 0 10px; border-radius: 7px; font-family: \"Segoe UI\", Arial, Helvetica, sans-serif; font-size: 12px; font-weight: 500; line-height: 1; } .ds-chip-blue { background: #e7efff; color: #044ce2; } .ds-chip-green { background: #e8f7f0; color: #238567; } .ds-chip-red { background: #fff0ed; color: #c9564f; }"
+    },
+    {
+      "name": "Work Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "A standard paper panel for a KPI or a list.",
+      "html": "<article class=\"ds-card\"><p class=\"ds-card-label\">Doanh thu thang</p><strong class=\"ds-card-metric\">128 450 €</strong></article>",
+      "css": ".ds-card { width: 240px; padding: 20px; border-radius: 15px; background: #ffffff; color: #063586; box-shadow: 0 14px 45px rgb(29 43 68 / 0.07); outline: 1px solid #e1e7f1; transition: transform 180ms ease, box-shadow 180ms ease; } .ds-card:hover { transform: translateY(-2px); box-shadow: 0 22px 70px rgb(29 43 68 / 0.13); } .ds-card-label { margin: 0; color: #68768c; font-family: \"Segoe UI\", Arial, Helvetica, sans-serif; font-size: 14px; font-weight: 500; } .ds-card-metric { display: block; margin-top: 12px; font-family: \"Segoe UI\", Arial, Helvetica, sans-serif; font-size: 26px; font-weight: 600; letter-spacing: -0.03em; }"
+    },
+    {
+      "name": "Priority Hero",
+      "kind": "custom",
+      "refersTo": "hero",
+      "description": "The wordmark navy field that states what needs action.",
+      "html": "<section class=\"ds-hero\"><h2>Les factures a risque sont deja isolees pour vous.</h2><p>Priorisez le recouvrement et gardez la separation tenant visible.</p><button class=\"ds-btn-inverse\" type=\"button\">Ouvrir les priorites</button></section>",
+      "css": ".ds-hero { max-width: 560px; padding: 24px; border-radius: 18px; background: #063586; color: #ffffff; box-shadow: 0 22px 60px rgb(6 53 134 / 0.18); font-family: \"Segoe UI\", Arial, Helvetica, sans-serif; } .ds-hero h2 { margin: 0; max-width: 18ch; font-size: 30px; font-weight: 600; line-height: 1.25; letter-spacing: -0.035em; } .ds-hero p { margin: 16px 0 20px; max-width: 46ch; color: #c4cee0; font-size: 14px; line-height: 28px; } .ds-btn-inverse { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border: 0; border-radius: 10px; background: #ffffff; color: #063586; font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; } .ds-btn-inverse:hover { transform: translateY(-1px); } .ds-btn-inverse:focus-visible { outline: 3px solid rgb(4 76 226 / 0.35); outline-offset: 3px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Operating Desk",
+    "overview": "COMPTE is a working desk for quotes, invoices, and cash, not a marketing page. The screen stays dense and quiet so a tenant admin can scan what needs action. White surfaces sit on a cool canvas. The only brand colors are the two colors in the COMPTE mark: the globe and the wordmark.\n\nThe mark itself is the logo. Use public/logo.svg for the full lockup and the cropped globe in src/app/icon.svg for the favicon. Do not redraw the wordmark as live text beside a letter tile.\n\nLarge brand areas, including the priority hero and the assistant card, are filled with wordmark navy. Globe blue is reserved for the thing the user can do or the place they are: primary buttons, links, the active navigation item, and selected filters. Money state uses its own green, amber, red, and violet, and those colors never stand in for the brand.",
+    "keyCharacteristics": [
+      "Two brand colors taken from the logo, plus a cool neutral canvas.",
+      "Compact controls, hairline borders, and soft resting shadows.",
+      "Status color means document or payment state, not decoration.",
+      "Sidebar plus sticky header, with the full logo in the sidebar and a smaller lockup in the mobile header.",
+      "Motion is short and physical: a slight lift on hover, and no motion when the user prefers reduced motion."
+    ],
+    "rules": [
+      {
+        "name": "The Logo Pair Rule",
+        "body": "Globe blue and wordmark navy are the only brand colors. Do not introduce a third brand blue.",
+        "section": "colors"
+      },
+      {
+        "name": "The Action Rule",
+        "body": "Globe blue marks an action, a link, or the current place. Wordmark navy carries text and large brand fields. Do not fill a whole content region with globe blue.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Face Rule",
+        "body": "Do not add a second type family for marketing emphasis inside the workspace.",
+        "section": "typography"
+      },
+      {
+        "name": "The Desk Rule",
+        "body": "Keep the sidebar, the sticky header, and one scrolling work column. Do not turn the workspace into a centered marketing column.",
+        "section": "layout"
+      },
+      {
+        "name": "The Rest Then Lift Rule",
+        "body": "Surfaces are quiet at rest. A stronger shadow is a response to hover or to the single hero, not a default on every box.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Shared Corner Rule",
+        "body": "A control the user can press uses the 10px radius. Do not mix pill buttons into the desk.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "Do take brand color from the logo: globe blue (`{colors.globe}`) for action and selection, wordmark navy (`{colors.wordmark}`) for text and large brand fills.",
+      "Do keep status green, amber, red, and violet tied to document or payment state.",
+      "Do use the 10px control radius, the 15px card radius, and the resting-card shadow for new working surfaces.",
+      "Do put the full `logo.svg` lockup in the sidebar and the smaller lockup in the mobile header.",
+      "Do honor reduced motion by dropping the lift, the entrance blur, and the spinner orbit."
+    ],
+    "donts": [
+      "Don't reintroduce the previous periwinkle (`#315ce9`) or a letter-tile wordmark.",
+      "Don't fill large content regions with globe blue.",
+      "Don't use status red or green as a brand accent.",
+      "Don't add a second type family or a loaded display face inside the workspace.",
+      "Don't turn operational screens into a centered marketing layout."
+    ]
+  }
+}

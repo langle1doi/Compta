@@ -1,0 +1,12 @@
+// Control plane: tenant registry, plans, platform admins.
+// Each model lives in its own file under models/, each enum under enums/.
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../../src/generated/control"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}

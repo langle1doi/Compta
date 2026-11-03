@@ -1,0 +1,36 @@
+model User {
+  id                 String     @id @default(uuid()) @db.Uuid
+  email              String     @unique
+  passwordHash       String?    @map("password_hash")
+  fullName           String     @map("full_name")
+  phone              String?
+  emailSignature     String?    @map("email_signature")
+  locale             String     @default("fr")
+  status             UserStatus @default(ACTIVE)
+  // Bumped to revoke every token of the user at once (disable, password reset)
+  tokenVersion       Int        @default(0) @map("token_version")
+  // Bumped when the user's roles or the grants of those roles change: tells the UI to reload its permissions
+  permissionsVersion Int        @default(1) @map("permissions_version")
+  // Last company the user worked in, selected again at login (F02 AC-01)
+  lastCompanyId      String?    @map("last_company_id") @db.Uuid
+  mfaEnabled         Boolean    @default(false) @map("mfa_enabled")
+  failedLoginCount   Int        @default(0) @map("failed_login_count")
+  lastFailedLoginAt  DateTime?  @map("last_failed_login_at")
+  lockedUntil        DateTime?  @map("locked_until")
+  lastLoginAt        DateTime?  @map("last_login_at")
+  createdAt          DateTime   @default(now()) @map("created_at")
+  updatedAt          DateTime   @updatedAt @map("updated_at")
+
+  memberships    Membership[]
+  sessions       Session[]
+  passwordResets PasswordReset[]
+  mfa            UserMfa?
+  recoveryCodes  MfaRecoveryCode[]
+  invitations    Invitation[]
+  ownedCustomers Customer[]        @relation("CustomerOwner")
+  customerShares CustomerShare[]
+  ownedQuotes    Quote[]           @relation("QuoteOwner")
+  ownedInvoices  Invoice[]         @relation("InvoiceOwner")
+
+  @@map("users")
+}

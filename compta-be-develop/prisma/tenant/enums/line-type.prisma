@@ -1,0 +1,9 @@
+// ITEM = priced line, SECTION = rubrique, NOTE = free text, SUBTOTAL = computed subtotal
+enum LineType {
+  ITEM
+  SECTION
+  NOTE
+  SUBTOTAL
+
+  @@map("line_type")
+}

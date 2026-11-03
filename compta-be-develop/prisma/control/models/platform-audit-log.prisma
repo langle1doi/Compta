@@ -1,0 +1,19 @@
+// Append-only (trigger in the SQL migration). No FK on actor_id: a row must outlive anything it refers to.
+model PlatformAuditLog {
+  id         BigInt   @id @default(autoincrement())
+  actorId    String?  @map("actor_id") @db.Uuid
+  actorEmail String?  @map("actor_email")
+  action     String
+  targetType String?  @map("target_type")
+  targetId   String?  @map("target_id")
+  before     Json?
+  after      Json?
+  ip         String?
+  userAgent  String?  @map("user_agent")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  @@index([action, createdAt])
+  @@index([actorEmail, createdAt])
+  @@index([targetType, targetId])
+  @@map("platform_audit_logs")
+}

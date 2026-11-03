@@ -1,0 +1,11 @@
+enum QuoteStatus {
+  DRAFT
+  PENDING_APPROVAL
+  SENT
+  ACCEPTED
+  REJECTED
+  EXPIRED
+  INVOICED
+
+  @@map("quote_status")
+}

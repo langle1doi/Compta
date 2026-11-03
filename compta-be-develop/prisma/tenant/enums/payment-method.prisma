@@ -1,0 +1,10 @@
+enum PaymentMethod {
+  BANK_TRANSFER
+  CARD
+  CHEQUE
+  CASH
+  DIRECT_DEBIT
+  OTHER
+
+  @@map("payment_method")
+}

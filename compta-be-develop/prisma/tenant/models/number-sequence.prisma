@@ -1,0 +1,17 @@
+// Gapless numbering per company / doc type / year (F03 BR-01). Incremented with an atomic UPDATE ... RETURNING.
+// format tokens: {YYYY} = year, {N...} = zero-padded counter, e.g. "FAC{YYYY}{NNNN}", "C{NNNNN}".
+// year = 0 for sequences that never reset (customer codes).
+model NumberSequence {
+  id        String       @id @default(uuid()) @db.Uuid
+  companyId String       @map("company_id") @db.Uuid
+  docType   DocumentType @map("doc_type")
+  year      Int
+  format    String
+  nextValue Int          @default(1) @map("next_value")
+  updatedAt DateTime     @updatedAt @map("updated_at")
+
+  company Company @relation(fields: [companyId], references: [id])
+
+  @@unique([companyId, docType, year])
+  @@map("number_sequences")
+}

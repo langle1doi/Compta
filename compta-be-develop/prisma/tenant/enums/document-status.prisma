@@ -1,0 +1,7 @@
+// Invoices and credit notes: VALIDATED documents are locked and get a definitive number.
+enum DocumentStatus {
+  DRAFT
+  VALIDATED
+
+  @@map("document_status")
+}

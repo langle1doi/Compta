@@ -1,0 +1,23 @@
+model PlatformAdmin {
+  id                 String              @id @default(uuid()) @db.Uuid
+  email              String              @unique
+  passwordHash       String              @map("password_hash")
+  fullName           String?             @map("full_name")
+  roleId             String              @map("role_id") @db.Uuid
+  status             PlatformAdminStatus @default(ACTIVE)
+  // Bumped to revoke every token of the admin at once (logout, password change, disable)
+  tokenVersion       Int                 @default(0) @map("token_version")
+  permissionsVersion Int                 @default(1) @map("permissions_version")
+  failedLoginCount   Int                 @default(0) @map("failed_login_count")
+  lastFailedLoginAt  DateTime?           @map("last_failed_login_at")
+  lockedUntil        DateTime?           @map("locked_until")
+  lastLoginAt        DateTime?           @map("last_login_at")
+  createdAt          DateTime            @default(now()) @map("created_at")
+  updatedAt          DateTime            @updatedAt @map("updated_at")
+
+  role     PlatformRole      @relation(fields: [roleId], references: [id])
+  sessions PlatformSession[]
+
+  @@index([roleId])
+  @@map("platform_admins")
+}

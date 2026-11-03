@@ -1,0 +1,12 @@
+// Tenant database: one PostgreSQL database per tenant, so no tenant_id column.
+// Each model lives in its own file under models/, each enum under enums/.
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../../src/generated/tenant"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}

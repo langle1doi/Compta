@@ -1,0 +1,7 @@
+enum ProvisioningJobType {
+  PROVISION
+  MIGRATE
+  EXPORT
+
+  @@map("provisioning_job_type")
+}

@@ -1,0 +1,15 @@
+// System roles only (seeded from the code catalog); there is no API to change them.
+model PlatformRole {
+  id          String   @id @default(uuid()) @db.Uuid
+  key         String   @unique
+  name        String
+  description String?
+  isSystem    Boolean  @default(true) @map("is_system")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  permissions PlatformRolePermission[]
+  admins      PlatformAdmin[]
+
+  @@map("platform_roles")
+}

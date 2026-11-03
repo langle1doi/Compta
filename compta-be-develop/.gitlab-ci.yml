@@ -1,0 +1,18 @@
+include:
+  - project: 'operations/k8s-gitops-argocd'
+    ref: develop
+    file: '/ci/pipeline.gitlab-ci.yml'
+
+variables:
+  APP_NAME: compta-be
+  REGION: Fr
+  LINT_IMAGE: 'node:22-alpine'
+  TEST_IMAGE: 'node:22-alpine'
+  # postinstall runs prisma generate and the Prisma configs require these. Nothing connects to them.
+  CONTROL_DATABASE_URL: 'postgresql://ci@localhost/ci'
+  TENANT_DATABASE_URL: 'postgresql://ci@localhost/ci'
+  LINT_CMD: 'npm ci && npm run lint && npm run typecheck'
+  # jest rootDir is src/: write the report to coverage/ at the repo root for the sonarqube job.
+  TEST_CMD: 'npm ci && npx jest --coverage --coverageDirectory=../coverage --coverageReporters=lcov --coverageReporters=text-summary'
+  # The backend only has a ClusterIP: no public URL for ZAP to scan.
+  SKIP_DAST: 'true'

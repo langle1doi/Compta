@@ -1,0 +1,8 @@
+// Which rows a permission grants access to. Order matters: OWN < COMPANY < TENANT.
+enum DataScope {
+  OWN
+  COMPANY
+  TENANT
+
+  @@map("data_scope")
+}

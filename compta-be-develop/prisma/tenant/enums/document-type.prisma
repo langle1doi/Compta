@@ -1,0 +1,8 @@
+enum DocumentType {
+  CUSTOMER
+  QUOTE
+  INVOICE
+  CREDIT_NOTE
+
+  @@map("document_type")
+}

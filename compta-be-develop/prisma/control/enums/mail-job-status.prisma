@@ -1,0 +1,9 @@
+enum MailJobStatus {
+  QUEUED
+  SENT
+  // No SMTP configured: nothing was sent, the row records it
+  SKIPPED
+  FAILED
+
+  @@map("mail_job_status")
+}

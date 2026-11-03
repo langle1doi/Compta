@@ -1,0 +1,9 @@
+// One row per tenant database (F03 TENANT_SETTING): the CHECK constraint in the SQL migration keeps id = 1.
+model TenantSetting {
+  id                Int      @id @default(1)
+  // F02 BR-03: the tenant can require 2FA for every user, not only the sensitive roles
+  mfaRequiredForAll Boolean  @default(false) @map("mfa_required_for_all")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+
+  @@map("tenant_settings")
+}

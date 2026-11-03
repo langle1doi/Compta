@@ -1,0 +1,37 @@
+model Tenant {
+  id                String       @id @default(uuid()) @db.Uuid
+  name              String
+  subdomain         String       @unique
+  status            TenantStatus @default(PROVISIONING)
+  planId            String       @map("plan_id") @db.Uuid
+  // Connection to the tenant's own database. Password is AES-256-GCM encrypted.
+  // Logical cluster: host and port come from the environment at runtime, because the same
+  // PostgreSQL has a different address inside and outside a container (deviation from PRD ch.5).
+  dbCluster         String       @default("default") @map("db_cluster")
+  dbName            String       @unique @map("db_name")
+  dbUser            String       @unique @map("db_user")
+  dbPasswordEnc     String       @map("db_password_enc")
+  // The API connects with this role, which is not the owner and only has INSERT/SELECT on audit_logs (F16 BR-01).
+  // db_user (owner) only runs migrations. Null until the next migrate-tenants on tenants created before this column.
+  dbAppUser         String?      @map("db_app_user")
+  dbAppPasswordEnc  String?      @map("db_app_password_enc")
+  // Company selected at login when the user has access to it, in the tenant database (no FK)
+  defaultCompanyId  String?      @map("default_company_id") @db.Uuid
+  // Latest tenant-schema migration applied to this tenant's database
+  schemaVersion     String?      @map("schema_version")
+  // Kept while PROVISIONING/FAILED so provisioning can be retried (never contains passwords)
+  provisioningInput Json?        @map("provisioning_input")
+  failureReason     String?      @map("failure_reason")
+  suspendedAt       DateTime?    @map("suspended_at")
+  deletedAt         DateTime?    @map("deleted_at")
+  createdAt         DateTime     @default(now()) @map("created_at")
+  updatedAt         DateTime     @updatedAt @map("updated_at")
+
+  plan            Plan                 @relation(fields: [planId], references: [id])
+  usage           TenantUsageSnapshot?
+  jobs            ProvisioningJob[]
+  supportSessions SupportSession[]
+
+  @@index([status])
+  @@map("tenants")
+}

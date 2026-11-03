@@ -1,0 +1,52 @@
+model Quote {
+  id               String      @id @default(uuid()) @db.Uuid
+  companyId        String      @map("company_id") @db.Uuid
+  number           String
+  // Versioning: a sent quote is edited by creating a new version pointing to the previous one
+  version          Int         @default(1)
+  previousId       String?     @unique @map("previous_id") @db.Uuid
+  status           QuoteStatus @default(DRAFT)
+  issueDate        DateTime    @map("issue_date") @db.Date
+  validUntil       DateTime    @map("valid_until") @db.Date
+  reference        String?
+  customerId       String      @map("customer_id") @db.Uuid
+  ownerId          String      @map("owner_id") @db.Uuid
+  currency         String      @db.Char(3)
+  discountPercent  Decimal     @default(0) @map("discount_percent") @db.Decimal(5, 2)
+  depositPercent   Decimal?    @map("deposit_percent") @db.Decimal(5, 2)
+  terms            String?
+  notes            String?
+  totalHt          Decimal     @default(0) @map("total_ht") @db.Decimal(14, 2)
+  totalVat         Decimal     @default(0) @map("total_vat") @db.Decimal(14, 2)
+  totalTtc         Decimal     @default(0) @map("total_ttc") @db.Decimal(14, 2)
+  // Token for the public accept/sign link
+  publicToken      String?     @unique @map("public_token")
+  sentAt           DateTime?   @map("sent_at")
+  approvedById     String?     @map("approved_by") @db.Uuid
+  approvedAt       DateTime?   @map("approved_at")
+  acceptedAt       DateTime?   @map("accepted_at")
+  signedByName     String?     @map("signed_by_name")
+  // Company/customer data frozen when the quote is issued (F03 BR-03, F06 BR-04)
+  companySnapshot  Json?       @map("company_snapshot")
+  customerSnapshot Json?       @map("customer_snapshot")
+  // Optimistic locking
+  lockVersion      Int         @default(0) @map("lock_version")
+  createdById      String?     @map("created_by") @db.Uuid
+  createdAt        DateTime    @default(now()) @map("created_at")
+  updatedAt        DateTime    @updatedAt @map("updated_at")
+  deletedAt        DateTime?   @map("deleted_at")
+
+  company  Company     @relation(fields: [companyId], references: [id])
+  customer Customer    @relation(fields: [customerId], references: [id])
+  owner    User        @relation("QuoteOwner", fields: [ownerId], references: [id])
+  previous Quote?      @relation("QuoteVersions", fields: [previousId], references: [id])
+  next     Quote?      @relation("QuoteVersions")
+  lines    QuoteLine[]
+  invoices Invoice[]
+
+  @@unique([companyId, number, version])
+  @@index([companyId, status])
+  @@index([companyId, ownerId])
+  @@index([customerId])
+  @@map("quotes")
+}

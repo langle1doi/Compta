@@ -1,0 +1,22 @@
+model Payment {
+  id          String        @id @default(uuid()) @db.Uuid
+  companyId   String        @map("company_id") @db.Uuid
+  invoiceId   String        @map("invoice_id") @db.Uuid
+  amount      Decimal       @db.Decimal(14, 2)
+  currency    String        @db.Char(3)
+  paidAt      DateTime      @map("paid_at") @db.Date
+  method      PaymentMethod
+  reference   String?
+  // Set when matched from a bank transaction (bank reconciliation, phase 2)
+  bankTxnId   String?       @map("bank_txn_id")
+  notes       String?
+  createdById String?       @map("created_by") @db.Uuid
+  createdAt   DateTime      @default(now()) @map("created_at")
+
+  company Company @relation(fields: [companyId], references: [id])
+  invoice Invoice @relation(fields: [invoiceId], references: [id])
+
+  @@index([invoiceId])
+  @@index([companyId, paidAt])
+  @@map("payments")
+}

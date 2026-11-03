@@ -1,0 +1,7 @@
+enum EmailStatus {
+  QUEUED
+  SENT
+  FAILED
+
+  @@map("email_status")
+}

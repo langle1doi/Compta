@@ -1,0 +1,47 @@
+model Invoice {
+  id               String         @id @default(uuid()) @db.Uuid
+  companyId        String         @map("company_id") @db.Uuid
+  type             InvoiceType    @default(STANDARD)
+  // Null while DRAFT; assigned from number_sequences on validation (gapless per company)
+  number           String?
+  status           DocumentStatus @default(DRAFT)
+  paymentStatus    PaymentStatus  @default(UNPAID) @map("payment_status")
+  quoteId          String?        @map("quote_id") @db.Uuid
+  customerId       String         @map("customer_id") @db.Uuid
+  ownerId          String?        @map("owner_id") @db.Uuid
+  poNumber         String?        @map("po_number")
+  issueDate        DateTime?      @map("issue_date") @db.Date
+  dueDate          DateTime?      @map("due_date") @db.Date
+  currency         String         @db.Char(3)
+  totalHt          Decimal        @default(0) @map("total_ht") @db.Decimal(14, 2)
+  totalVat         Decimal        @default(0) @map("total_vat") @db.Decimal(14, 2)
+  totalTtc         Decimal        @default(0) @map("total_ttc") @db.Decimal(14, 2)
+  amountPaid       Decimal        @default(0) @map("amount_paid") @db.Decimal(14, 2)
+  lateFeeRate      Decimal?       @map("late_fee_rate") @db.Decimal(5, 2)
+  recoveryFee      Decimal?       @map("recovery_fee") @db.Decimal(14, 2)
+  terms            String?
+  notes            String?
+  // Company/customer data frozen at validation (F03 BR-03, F06 BR-04)
+  companySnapshot  Json?          @map("company_snapshot")
+  customerSnapshot Json?          @map("customer_snapshot")
+  lockVersion      Int            @default(0) @map("lock_version")
+  lockedAt         DateTime?      @map("locked_at")
+  validatedById    String?        @map("validated_by") @db.Uuid
+  createdById      String?        @map("created_by") @db.Uuid
+  createdAt        DateTime       @default(now()) @map("created_at")
+  updatedAt        DateTime       @updatedAt @map("updated_at")
+
+  company     Company       @relation(fields: [companyId], references: [id])
+  quote       Quote?        @relation(fields: [quoteId], references: [id])
+  customer    Customer      @relation(fields: [customerId], references: [id])
+  owner       User?         @relation("InvoiceOwner", fields: [ownerId], references: [id])
+  lines       InvoiceLine[]
+  payments    Payment[]
+  creditNotes CreditNote[]
+
+  @@unique([companyId, number])
+  @@index([companyId, status, paymentStatus])
+  @@index([companyId, dueDate])
+  @@index([customerId])
+  @@map("invoices")
+}

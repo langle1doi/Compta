@@ -1,0 +1,15 @@
+model UserMfa {
+  userId        String    @id @map("user_id") @db.Uuid
+  // AES-256-GCM
+  totpSecretEnc String    @map("totp_secret_enc")
+  // Null until the user proved possession with a first code
+  confirmedAt   DateTime? @map("confirmed_at")
+  // Last accepted 30-second step: a code cannot be replayed
+  lastUsedStep  Int?      @map("last_used_step")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_mfa")
+}

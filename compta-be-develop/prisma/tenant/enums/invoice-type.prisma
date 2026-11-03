@@ -1,0 +1,6 @@
+enum InvoiceType {
+  STANDARD
+  DEPOSIT
+
+  @@map("invoice_type")
+}

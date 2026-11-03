@@ -1,0 +1,33 @@
+// Avoir: the only way to correct a validated invoice
+model CreditNote {
+  id               String         @id @default(uuid()) @db.Uuid
+  companyId        String         @map("company_id") @db.Uuid
+  number           String?
+  status           DocumentStatus @default(DRAFT)
+  invoiceId        String         @map("invoice_id") @db.Uuid
+  customerId       String         @map("customer_id") @db.Uuid
+  reason           String
+  issueDate        DateTime?      @map("issue_date") @db.Date
+  currency         String         @db.Char(3)
+  totalHt          Decimal        @default(0) @map("total_ht") @db.Decimal(14, 2)
+  totalVat         Decimal        @default(0) @map("total_vat") @db.Decimal(14, 2)
+  totalTtc         Decimal        @default(0) @map("total_ttc") @db.Decimal(14, 2)
+  // Company/customer data frozen at validation (F03 BR-03)
+  companySnapshot  Json?          @map("company_snapshot")
+  customerSnapshot Json?          @map("customer_snapshot")
+  lockVersion      Int            @default(0) @map("lock_version")
+  lockedAt         DateTime?      @map("locked_at")
+  validatedById    String?        @map("validated_by") @db.Uuid
+  createdById      String?        @map("created_by") @db.Uuid
+  createdAt        DateTime       @default(now()) @map("created_at")
+  updatedAt        DateTime       @updatedAt @map("updated_at")
+
+  company  Company          @relation(fields: [companyId], references: [id])
+  invoice  Invoice          @relation(fields: [invoiceId], references: [id])
+  customer Customer         @relation(fields: [customerId], references: [id])
+  lines    CreditNoteLine[]
+
+  @@unique([companyId, number])
+  @@index([invoiceId])
+  @@map("credit_notes")
+}

@@ -1,0 +1,8 @@
+enum ProvisioningJobStatus {
+  QUEUED
+  RUNNING
+  SUCCEEDED
+  FAILED
+
+  @@map("provisioning_job_status")
+}

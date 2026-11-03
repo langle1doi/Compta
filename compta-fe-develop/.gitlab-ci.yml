@@ -1,0 +1,12 @@
+include:
+  - project: "operations/k8s-gitops-argocd"
+    ref: develop
+    file: "/ci/pipeline.gitlab-ci.yml"
+
+variables:
+  APP_NAME: compta-fe
+  REGION: Fr
+  LINT_IMAGE: "node:22-alpine"
+  LINT_CMD: "npm ci && npm run lint && npm run typecheck"
+  TEST_CMD: ""
+  SKIP_DAST: "true"
